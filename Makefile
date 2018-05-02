@@ -12,4 +12,4 @@ dlstack.o: dlstack.h dlstack.c
 	$(CC) $(CCFLAGS) dlstack.c -c
 
 clean:
-	/bin/rm -f $(OBJECTS) test
+	/bin/rm -f $(OBJECTS) test core.*

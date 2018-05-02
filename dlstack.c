@@ -24,6 +24,8 @@ void popQS(QueryStack *stack)
         return;
     if (stack->next == NULL)
         return free(stack);
+    if (stack->next->next != NULL)
+        popQS(stack->next);
     free(stack->next);
     stack->next = NULL;
 }
