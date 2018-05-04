@@ -5,8 +5,10 @@
 
 int parseEND(char *str);
 int parseWHITESPACE(char *str);
-int parseCHAR(char *str, const char *needle);
+int parseSTR(char *str, const char *needle);
 int parseWSSTR(char *str, const char *needle);
+int parseCHAR(char *str, const char *needle);
+int parseNCHAR(char *str, const char *needle);
 
 int parseProgram(TokenQueue *prevTokens, char *str);
 int parseStatement(TokenQueue *prevTokens, char *str);
@@ -25,16 +27,16 @@ int parseArgument(TokenQueue *prevTokens, char *str);
 int parseGoal(TokenQueue *prevTokens, char *str);
 
 int parseVariable(TokenQueue *prevTokens, char *str);
-int parseUidentifier(TokenQueue *prevTokens, char *str);
-int parseUlet(TokenQueue *prevTokens, char *str);
-int parseUalnum(TokenQueue *prevTokens, char *str);
+int parseUidentifier(char *str);
+int parseUlet(char *str);
+int parseUalnum(char *str);
 
 int parsePredicate(TokenQueue *prevTokens, char *str);
 int parseParameter(TokenQueue *prevTokens, char *str);
-int parseLidentifier(TokenQueue *prevTokens, char *str);
-int parseLalnum(TokenQueue *prevTokens, char *str);
-int parseString(TokenQueue *prevTokens, char *str);
-int parseStringChar(TokenQueue *prevTokens, char *str);
-int parseSafeChar(TokenQueue *prevTokens, char *str);
+int parseLidentifier(char *str);
+int parseLalnum(char *str);
+int parseString(char *str);
+int parseStringChar(char *str);
+int parseSafeChar(char *str);
 
 #endif

@@ -7,6 +7,8 @@ TokenQueueNode *enqueue(TokenQueue *q, Token *t)
     TokenQueueNode *result = (TokenQueueNode *)malloc(sizeof(TokenQueueNode));
     result->value = t;
     result->next = NULL;
+    if (q->front == NULL)
+        q->front = result;
     if (q->rear != NULL)
         q->rear->next = result;
     q->rear = result;
