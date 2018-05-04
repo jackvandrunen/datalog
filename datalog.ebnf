@@ -1,0 +1,30 @@
+program := statement END | statement program
+statement := . (fact | rule | goal) .
+
+fact := predicate . '(' . paramList . ')' . '.'
+paramList := parameter | parameter comma paramList
+
+rule := head . ':' '-' . body . '.'
+head := predicate . '(' . varList . ')'
+varList := variable | variable comma varList
+body := partial | partial comma body
+partial := predicate . '(' . argList . ')'
+argList := argument | argument comma argList
+argument := parameter | variable
+
+goal := '?' '-' . body . '.'
+
+variable := uidentifier
+uidentifier := ulet | ulet ualnum
+ulet := [A-Z]
+ualnum := [A-Z0-9_] | [A-Z0-9_] ualnum
+
+predicate := lidentifier
+parameter := lidentifier
+lidentifier := lalnum | string
+lalnum := [a-z0-9_] | [a-z0-9_] lalnum
+string := '\'' stringchar '\''
+stringchar := safechar | safechar stringchar
+safechar := [^\\] | '\' ('\'' | '\\')
+
+comma := . ',' .
