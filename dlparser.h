@@ -39,4 +39,8 @@ int parseString(char *str);
 int parseStringChar(char *str);
 int parseSafeChar(char *str);
 
+int parseComment(char *str);
+int parseCommentChar(char *str);
+int parseCChar(char *str);
+
 #endif

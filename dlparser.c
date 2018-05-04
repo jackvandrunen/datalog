@@ -9,7 +9,11 @@ int parseEND(char *str)
 
 int parseWHITESPACE(char *str)
 {
-    return strspn(str, " \t\r\n");
+    int result, i;
+    result = i = strspn(str, " \t\r\n");
+    if ((result += parseComment(str + i)) != i)
+        return result + parseWHITESPACE(str + result);
+    return result;
 }
 
 int parseSTR(char *str, const char *needle)
@@ -414,5 +418,38 @@ int parseSafeChar(char *str)
         return 2;
     if (parseSTR(str, "\\'"))
         return 2;
+    return 0;
+}
+
+int parseComment(char *str)
+{
+    int result, i;
+    if ((result = i = parseSTR(str, "/*")))
+    {
+        if ((result += parseCommentChar(str + i)) != i)
+        {
+            i = result;
+            if ((result += parseSTR(str + i, "*/")) != i)
+            {
+                return result;
+            }
+        }
+    }
+    return 0;
+}
+
+int parseCommentChar(char *str)
+{
+    int result = 0;
+    int i = 0;
+    while ((result += parseCChar(str + i)) != i)
+        i = result;
+    return result;
+}
+
+int parseCChar(char *str)
+{
+    if (str[0] && (parseNCHAR(str, "*") || parseNCHAR(str + 1, "/")))
+        return 1;
     return 0;
 }

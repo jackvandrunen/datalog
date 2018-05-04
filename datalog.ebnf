@@ -27,4 +27,9 @@ string := '\'' stringchar '\''
 stringchar := safechar | safechar stringchar
 safechar := [^\\'] | '\' ('\'' | '\\')
 
+comment := '/' '*' commentchar '*' '/'
+commentchar := cchar | cchar commentchar
+cchar := [^*] | '*' [^/]
+
 comma := . ',' .
+. := (WHITESPACE | comment)*
