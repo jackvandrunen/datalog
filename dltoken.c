@@ -30,6 +30,12 @@ Token *dequeueTQ(TokenQueue *q)
     return result;
 }
 
+void emptyTQ(TokenQueue *q)
+{
+    for (Token *t = dequeueTQ(q); t; t = dequeueTQ(q))
+        deleteToken(t);
+}
+
 Token *newToken(Nonterminal nt, char *str, int offset, TokenQueue *children)
 {
     Token *result = (Token *)malloc(sizeof(Token));
@@ -40,4 +46,11 @@ Token *newToken(Nonterminal nt, char *str, int offset, TokenQueue *children)
     result->value = value;
     result->children = *children;
     return result;
+}
+
+Token *deleteToken(Token *t)
+{
+    free(t->value);
+    free(t);
+    return NULL;
 }

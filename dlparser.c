@@ -69,7 +69,7 @@ int parseProgram(TokenQueue *prevTokens, char *str)
             FOUND(PROGRAM);
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseStatement(TokenQueue *prevTokens, char *str)
@@ -92,7 +92,7 @@ int parseStatement(TokenQueue *prevTokens, char *str)
         result += parseWHITESPACE(str + result);
         FOUND(STATEMENT);
     }
-    return 0;
+    FAIL();
 }
 
 int parseFact(TokenQueue *prevTokens, char *str)
@@ -101,7 +101,6 @@ int parseFact(TokenQueue *prevTokens, char *str)
     TokenQueue children = {NULL, NULL};
     if ((result = i = parsePredicate(&children, str)))
     {
-        i = result;
         if ((result += parseWSSTR(str + i, "(")) != i)
         {
             i = result;
@@ -119,7 +118,7 @@ int parseFact(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseParamList(TokenQueue *prevTokens, char *str)
@@ -141,7 +140,7 @@ int parseParamList(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseRule(TokenQueue *prevTokens, char *str)
@@ -163,7 +162,7 @@ int parseRule(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseHead(TokenQueue *prevTokens, char *str)
@@ -185,7 +184,7 @@ int parseHead(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseVarList(TokenQueue *prevTokens, char *str)
@@ -207,7 +206,7 @@ int parseVarList(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseBody(TokenQueue *prevTokens, char *str)
@@ -229,7 +228,7 @@ int parseBody(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parsePartial(TokenQueue *prevTokens, char *str)
@@ -251,7 +250,7 @@ int parsePartial(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseArgList(TokenQueue *prevTokens, char *str)
@@ -273,7 +272,7 @@ int parseArgList(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseArgument(TokenQueue *prevTokens, char *str)
@@ -288,7 +287,7 @@ int parseArgument(TokenQueue *prevTokens, char *str)
     {
         FOUND(ARGUMENT);
     }
-    return 0;
+    FAIL();
 }
 
 int parseGoal(TokenQueue *prevTokens, char *str)
@@ -306,7 +305,7 @@ int parseGoal(TokenQueue *prevTokens, char *str)
             }
         }
     }
-    return 0;
+    FAIL();
 }
 
 int parseVariable(TokenQueue *prevTokens, char *str)
@@ -317,7 +316,7 @@ int parseVariable(TokenQueue *prevTokens, char *str)
     {
         FOUND(VARIABLE);
     }
-    return 0;
+    FAIL();
 }
 
 int parseUidentifier(char *str)
@@ -352,7 +351,7 @@ int parsePredicate(TokenQueue *prevTokens, char *str)
     {
         FOUND(PREDICATE);
     }
-    return 0;
+    FAIL();
 }
 
 int parseParameter(TokenQueue *prevTokens, char *str)
@@ -363,7 +362,7 @@ int parseParameter(TokenQueue *prevTokens, char *str)
     {
         FOUND(PARAMETER);
     }
-    return 0;
+    FAIL();
 }
 
 int parseLidentifier(char *str)

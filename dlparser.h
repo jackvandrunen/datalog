@@ -3,6 +3,8 @@
 
 #define FOUND(nt) enqueueTQ(prevTokens, newToken(nt, str, result, &children)); return result
 
+#define FAIL() emptyTQ(&children); return 0
+
 int parseEND(char *str);
 int parseWHITESPACE(char *str);
 int parseSTR(char *str, const char *needle);

@@ -26,6 +26,7 @@ void printQueue(TokenQueue *q, int indent)
         printIndent(indent);
         printf("%2d %s\n", current->nt, current->value);
         printQueue(&(current->children), indent + 1);
+        current = deleteToken(current);
     }
 }
 

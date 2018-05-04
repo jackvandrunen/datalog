@@ -45,6 +45,8 @@ struct Token
 
 TokenQueueNode *enqueueTQ(TokenQueue *q, Token *t);
 Token *dequeueTQ(TokenQueue *q);
+void emptyTQ(TokenQueue *q);
 Token *newToken(Nonterminal nt, char *str, int offset, TokenQueue *children);
+Token *deleteToken(Token *t);
 
 #endif
