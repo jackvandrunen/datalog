@@ -1,8 +1,6 @@
 #ifndef DLTOKEN_H
 #define DLTOKEN_H
 
-#define TOKENLEN 256
-
 typedef enum Nonterminal
 {
     PROGRAM,
@@ -18,16 +16,8 @@ typedef enum Nonterminal
     ARGUMENT,
     GOAL,
     VARIABLE,
-    UIDENTIFIER,
-    ULET,
-    UALNUM,
     PREDICATE,
-    PARAMETER,
-    LIDENTIFIER,
-    LALNUM,
-    STRING,
-    STRINGCHAR,
-    SAFECHAR
+    PARAMETER
 } Nonterminal;
 
 typedef struct Token Token;
@@ -53,8 +43,8 @@ struct Token
     TokenQueue children;
 };
 
-TokenQueueNode *enqueue(TokenQueue *q, Token *t);
-Token *dequeue(TokenQueue *q);
+TokenQueueNode *enqueueTQ(TokenQueue *q, Token *t);
+Token *dequeueTQ(TokenQueue *q);
 Token *newToken(Nonterminal nt, char *str, int offset, TokenQueue *children);
 
 #endif

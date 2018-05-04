@@ -14,14 +14,14 @@ void readStdin(char *buf, int max)
 
 void printIndent(int indent)
 {
-    for (int i = 0; i < indent; i++)
+    for (int i = 0; i < indent * 2; i++)
         putchar(' ');
 }
 
 void printQueue(TokenQueue *q, int indent)
 {
     Token *current;
-    while ((current = dequeue(q)))
+    while ((current = dequeueTQ(q)))
     {
         printIndent(indent);
         printf("%2d %s\n", current->nt, current->value);

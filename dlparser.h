@@ -1,7 +1,7 @@
 #ifndef DLPARSER_H
 #define DLPARSER_H
 
-#define FOUND(nt) enqueue(prevTokens, newToken(nt, str, result, &children)); return result
+#define FOUND(nt) enqueueTQ(prevTokens, newToken(nt, str, result, &children)); return result
 
 int parseEND(char *str);
 int parseWHITESPACE(char *str);

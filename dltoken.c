@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-TokenQueueNode *enqueue(TokenQueue *q, Token *t)
+TokenQueueNode *enqueueTQ(TokenQueue *q, Token *t)
 {
     TokenQueueNode *result = (TokenQueueNode *)malloc(sizeof(TokenQueueNode));
     result->value = t;
@@ -15,7 +15,7 @@ TokenQueueNode *enqueue(TokenQueue *q, Token *t)
     return result;
 }
 
-Token *dequeue(TokenQueue *q)
+Token *dequeueTQ(TokenQueue *q)
 {
     TokenQueueNode *front;
     Token *result;
@@ -24,6 +24,8 @@ Token *dequeue(TokenQueue *q)
     front = q->front;
     result = front->value;
     q->front = front->next;
+    if (q->rear == front)
+        q->rear = NULL;
     free(front);
     return result;
 }
