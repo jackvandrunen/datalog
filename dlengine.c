@@ -4,6 +4,39 @@
 #include <stdlib.h>
 #include <string.h>
 
+void flattenTree(TokenQueue *dest, TokenQueue *q)
+{
+    Token *current = dequeueTQ(q);
+    enqueueTQ(dest, current);
+    if ((current = dequeueTQ(q)))
+    {
+        flattenTree(dest, &(current->children));
+        deleteToken(current);
+    }
+}
+
+TokenQueue unravel(Token *t)
+{
+    TokenQueue result = {NULL, NULL};
+    flattenTree(&result, &(t->children));
+    deleteToken(t);
+    return result;
+}
+
+char **factList(TokenQueue *params)
+{
+    int len = sizeTQ(params);
+    char **result = (char **)malloc(sizeof(char *) * (len + 1));
+    for (int i = 0; i < len; i++)
+    {
+        Token *current = dequeueTQ(params);
+        result[i] = current->value;
+        free(current);  // We want to preserve the allocated string
+    }
+    result[len] = NULL;
+    return result;
+}
+
 Functor *getOrAddFunc(Functor ***state, char *predicate, int parc)
 {
     int i;
@@ -20,24 +53,21 @@ Functor *getOrAddFunc(Functor ***state, char *predicate, int parc)
     return *state[i];
 }
 
-void addFact(Functor *func, char **params)
+void addFact(Functor *func, TokenQueue *params)
 {
     int i = 0;
     while (func->facts[i] != NULL)
         ++i;
     func->facts = (char ***)realloc(func->facts, sizeof(char **) * (i + 2));
-    func->facts[i] = params;
+    func->facts[i] = factList(params);
     func->facts[i + 1] = NULL;
 }
 
 void executeFact(Functor ***state, Token *statement) {
     Token *predicate = dequeueTQ(&(statement->children));
-    char **paramList = unravel(dequeueTQ(&(statement->children)));
-    int parc = 0;
-    while (paramList[parc] != NULL)
-        ++parc;
-    Functor *func = getOrAddFunc(state, predicate->value, parc);
-    addFact(func, paramList);
+    TokenQueue paramList = unravel(dequeueTQ(&(statement->children)));
+    Functor *func = getOrAddFunc(state, predicate->value, sizeTQ(&paramList));
+    addFact(func, &paramList);
     deleteToken(predicate);
 }
 

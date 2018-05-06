@@ -30,6 +30,13 @@ Token *dequeueTQ(TokenQueue *q)
     return result;
 }
 
+int sizeTQ(TokenQueue *q)
+{
+    int result;
+    for (result = 0, TokenQueueNode tqn = q->front; tqn; result++, tqn=tqn->next);
+    return result;
+}
+
 void emptyTQ(TokenQueue *q)
 {
     for (Token *t = dequeueTQ(q); t; t = dequeueTQ(q))
